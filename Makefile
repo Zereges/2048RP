@@ -7,7 +7,7 @@ WITH-DEBUG=-g
 
 all: server client
 
-server: ser-main.o session.o
+server: ser-main.o session.o player_data.o
 	$(CXX) $(LDFLAGS) $(LDSERVER) $+
 
 client: cl-main.o
@@ -16,10 +16,13 @@ client: cl-main.o
 cl-main.o: 2048Client/src/main.cpp 2048Client/src/client.hpp 2048Client/src/listener.hpp
 	$(CXX) $(CXXFLAGS) $(WITH-DEBUG) -o $@ $<
 
-ser-main.o: 2048Server/src/main.cpp  2048Server/src/server.hpp
+ser-main.o: 2048Server/src/main.cpp  2048Server/src/server.hpp Common/main.hpp
 	$(CXX) $(CXXFLAGS) $(CXXSERVER) $(WITH-DEBUG) -o $@ $<
 
 session.o: 2048Server/src/session.cpp 2048Server/src/session.hpp 2048Server/src/session_container.hpp 2048Server/src/base_session.hpp 2048Server/src/player_data.hpp 2048Server/src/sql_connection.hpp
+	$(CXX) $(CXXFLAGS) $(CXXSERVER) $(WITH-DEBUG) $<
+
+player_data.o: 2048Server/src/player_data.cpp 2048Server/src/player_data.hpp Common/main.hpp Common/play_event.hpp
 	$(CXX) $(CXXFLAGS) $(CXXSERVER) $(WITH-DEBUG) $<
 
 clean:
