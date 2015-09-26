@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="2048Game">
+      <UniqueIdentifier>{767e33ed-c8f4-4203-98f8-e089a87d82a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2048Game\Header Files">
+      <UniqueIdentifier>{ce65acb2-9f37-4b3c-9520-c35204899264}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2048Game\Source Files">
+      <UniqueIdentifier>{9bc02dc1-e05e-4487-8f51-0d722e980f57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2048Game\Header Files\Animation">
+      <UniqueIdentifier>{d8be1304-9dc3-4b8a-89b2-bab8fba5404b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2048Game\Header Files\Core">
+      <UniqueIdentifier>{515f1d3f-c292-41f8-83fe-34d511c6d488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2048Game\Header Files\Defs">
+      <UniqueIdentifier>{0c04c473-3cae-4fc8-8d77-81dca9351d5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2048Game\Header Files\Stats">
+      <UniqueIdentifier>{451b07d8-cccd-4353-9a47-0f2ff717aa3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2048Game\Source Files\Animation">
+      <UniqueIdentifier>{d46bb048-2b2f-46be-b896-b7c50ecafdf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2048Game\Source Files\Core">
+      <UniqueIdentifier>{8651adf3-e179-4168-bdb3-10c094653591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2048Game\Source Files\Defs">
+      <UniqueIdentifier>{537cecd8-c20e-4d61-99a4-602df5502aff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2048Game\Source Files\Stats">
+      <UniqueIdentifier>{4dfba5eb-212d-4102-9245-3b8c35ec9113}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\2048Game\Animation\Merge.cpp">
+      <Filter>2048Game\Source Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\2048Game\Animation\Move.cpp">
+      <Filter>2048Game\Source Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\2048Game\Animation\Spawn.cpp">
+      <Filter>2048Game\Source Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\2048Game\Game\Game.cpp">
+      <Filter>2048Game\Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\2048Game\Program\Program.cpp">
+      <Filter>2048Game\Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\2048Game\Window\Window.cpp">
+      <Filter>2048Game\Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\2048Game\Definitions\NumberedRect.cpp">
+      <Filter>2048Game\Source Files\Defs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\2048Game\Definitions\Rect.cpp">
+      <Filter>2048Game\Source Files\Defs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\2048Game\Window\StatsWindow.cpp">
+      <Filter>2048Game\Source Files\Stats</Filter>
+    </ClCompile>
+    <ClCompile Include="src\2048Game\Stats\Stats.cpp">
+      <Filter>2048Game\Source Files\Stats</Filter>
+    </ClCompile>
+    <ClCompile Include="src\2048Game\Window\GameWindow.cpp">
+      <Filter>2048Game\Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\2048Game\Definitions\Definitions.cpp">
+      <Filter>2048Game\Source Files\Defs</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\client.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\listener.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\2048Game\Animation\Animation.hpp">
+      <Filter>2048Game\Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\2048Game\Animation\Animator.hpp">
+      <Filter>2048Game\Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\2048Game\Animation\Merge.hpp">
+      <Filter>2048Game\Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\2048Game\Animation\Move.hpp">
+      <Filter>2048Game\Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\2048Game\Animation\Spawn.hpp">
+      <Filter>2048Game\Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\2048Game\Game\Game.hpp">
+      <Filter>2048Game\Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\2048Game\Program\Program.hpp">
+      <Filter>2048Game\Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\2048Game\Window\Window.hpp">
+      <Filter>2048Game\Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\2048Game\Definitions\NumberedRect.hpp">
+      <Filter>2048Game\Header Files\Defs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\2048Game\Definitions\Rect.hpp">
+      <Filter>2048Game\Header Files\Defs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\2048Game\Stats\Stats.hpp">
+      <Filter>2048Game\Header Files\Stats</Filter>
+    </ClInclude>
+    <ClInclude Include="src\2048Game\Window\StatsWindow.hpp">
+      <Filter>2048Game\Header Files\Stats</Filter>
+    </ClInclude>
+    <ClInclude Include="src\2048Game\Window\GameWindow.hpp">
+      <Filter>2048Game\Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\2048Game\Definitions\Definitions.hpp">
+      <Filter>2048Game\Header Files\Defs</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

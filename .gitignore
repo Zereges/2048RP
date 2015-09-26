@@ -194,3 +194,10 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+# Linux a.out format and obj formats
+*.out
+*.o
+
+# Documentation
+doc/
