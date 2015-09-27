@@ -70,6 +70,7 @@ CREATE TABLE `users` (
   `id` int(8) NOT NULL AUTO_INCREMENT COMMENT 'user id',
   `name` varchar(16) NOT NULL COMMENT 'user name',
   `passwd` char(20) NOT NULL COMMENT 'user hashed pass',
+  `reg_date` datetime DEFAULT NULL COMMENT 'date when user registred',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 

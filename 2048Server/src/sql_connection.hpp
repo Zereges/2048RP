@@ -89,23 +89,24 @@ class sql_connection
             for (std::size_t i = 0; i < stats.size(); ++i)
             {
                 std::string hlp = "(" + std::to_string(id) + ", " + std::to_string(i) + ", " + std::to_string(stats[i]) + ")";
-                cur_query += hlp + ",";
                 switch (static_cast<stats::StatTypes>(i))
                 {
                     case stats::HIGHEST_SCORE:
                     case stats::MAXIMAL_BLOCK:
                     case stats::SLOWEST_WIN:
                     case stats::SLOWEST_LOSE:
-                        if (stats[i])
-                            execute("INSERT INTO stats_global (player_id, stats_id, value) VALUES " + hlp +
-                                    " ON DUPLICATE KEY UPDATE value = CASE WHEN value < " + std::to_string(stats[i]) + " THEN " + std::to_string(stats[i]) + " ELSE value END;");
+                        if (!stats[i])
+                            continue;
+                        execute("INSERT INTO stats_global (player_id, stats_id, value) VALUES " + hlp +
+                                " ON DUPLICATE KEY UPDATE value = CASE WHEN value < " + std::to_string(stats[i]) + " THEN " + std::to_string(stats[i]) + " ELSE value END;");
                         break;
 
                     case stats::FASTEST_WIN:
                     case stats::FASTEST_LOSE:
-                        if (stats[i])
-                            execute("INSERT INTO stats_global (player_id, stats_id, value) VALUES " + hlp +
-                                    " ON DUPLICATE KEY UPDATE value = CASE WHEN value > " + std::to_string(stats[i]) + " THEN " + std::to_string(stats[i]) + " ELSE value END;");
+                        if (!stats[i])
+                            continue;
+                        execute("INSERT INTO stats_global (player_id, stats_id, value) VALUES " + hlp +
+                                " ON DUPLICATE KEY UPDATE value = CASE WHEN value > " + std::to_string(stats[i]) + " THEN " + std::to_string(stats[i]) + " ELSE value END;");
                         break;
                     
                     default:
@@ -113,6 +114,7 @@ class sql_connection
                                 " ON DUPLICATE KEY UPDATE value = value + " + std::to_string(stats[i]) + "; ");
                         break;
                 }
+                cur_query += hlp + ",";
             }
             cur_query[cur_query.size() - 1] = ';'; // replace , -> ;
             execute(cur_query);
