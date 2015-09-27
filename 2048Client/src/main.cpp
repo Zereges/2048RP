@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
     {
         boost::asio::io_service io_service;
         tcp::resolver resolver(io_service);
-        tcp::resolver::query query(HOST, PORT);
+        tcp::resolver::query query(argc > 1 ? argv[1] : HOST, argc > 2 ? argv[2] : PORT);
         tcp::resolver::iterator iterator = resolver.resolve(query);
 
         bool connected;
@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
     }
     catch (cant_connect&)
     {
-        std::cerr << "Cant connect to " << HOST << ":" << PORT << ".";
+        std::cerr << "Cant connect to " << (argc > 1 ? argv[1] : HOST)  << ":" << (argc > 2 ? argv[2] : PORT) << ".";
         return EXIT_FAILURE;
     }
     catch (std::exception& e)
