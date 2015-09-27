@@ -18,6 +18,7 @@ int Program::start(const client_data_tuple& data, client& cl)
     SDL_Event event;
 
     std::cout << "OK." << std::endl << "Closing console..." << std::endl;
+    FreeConsole();
 
     while (is_running())
     {
