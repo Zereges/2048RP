@@ -9,7 +9,13 @@
 void session::handle_message(const message& mes)
 {
     std::time_t now_c = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+#if __GNUC__ < 5
+    char mbstr[100];
+    if (std::strftime(mbstr, sizeof(mbstr), "%F %T: ", std::localtime(&now_c)))
+        std::cout << mbstr << '\n';
+#else
     std::cout << std::put_time(std::localtime(&now_c), "%F %T: ");
+#endif
 
     std::string data(mes.body(), mes.body_length());
     if (compare_msg(data, message_types::MSG_LOGIN))
