@@ -17,24 +17,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common Files", "Common File
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{26FAD0F0-10ED-4A5F-883F-BF5DB86C0D87}.Debug|x64.ActiveCfg = Debug|x64
-		{26FAD0F0-10ED-4A5F-883F-BF5DB86C0D87}.Debug|x64.Build.0 = Debug|x64
-		{26FAD0F0-10ED-4A5F-883F-BF5DB86C0D87}.Debug|x86.ActiveCfg = Debug|Win32
-		{26FAD0F0-10ED-4A5F-883F-BF5DB86C0D87}.Debug|x86.Build.0 = Debug|Win32
 		{26FAD0F0-10ED-4A5F-883F-BF5DB86C0D87}.Release|x64.ActiveCfg = Release|x64
 		{26FAD0F0-10ED-4A5F-883F-BF5DB86C0D87}.Release|x64.Build.0 = Release|x64
 		{26FAD0F0-10ED-4A5F-883F-BF5DB86C0D87}.Release|x86.ActiveCfg = Release|Win32
 		{26FAD0F0-10ED-4A5F-883F-BF5DB86C0D87}.Release|x86.Build.0 = Release|Win32
-		{D78C4AF7-2954-45C0-8455-2BA10267944E}.Debug|x64.ActiveCfg = Debug|x64
-		{D78C4AF7-2954-45C0-8455-2BA10267944E}.Debug|x64.Build.0 = Debug|x64
-		{D78C4AF7-2954-45C0-8455-2BA10267944E}.Debug|x86.ActiveCfg = Debug|Win32
-		{D78C4AF7-2954-45C0-8455-2BA10267944E}.Debug|x86.Build.0 = Debug|Win32
 		{D78C4AF7-2954-45C0-8455-2BA10267944E}.Release|x64.ActiveCfg = Release|x64
 		{D78C4AF7-2954-45C0-8455-2BA10267944E}.Release|x64.Build.0 = Release|x64
 		{D78C4AF7-2954-45C0-8455-2BA10267944E}.Release|x86.ActiveCfg = Release|Win32
