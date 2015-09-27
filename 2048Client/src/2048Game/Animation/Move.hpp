@@ -1,5 +1,4 @@
-#ifndef _MOVE_HPP_
-#define _MOVE_HPP_
+#pragma once
 #include <SDL.h>
 #include <memory>
 #include <vector>
@@ -7,10 +6,11 @@
 #include "../Definitions/Rect.hpp"
 #include "Animation.hpp"
 
-/*!
- * \brief Move class handling animation of moving of blocks.
- * \sa Animation
- */
+/**!
+    \ingroup client
+    \brief Move class handling animation of moving of blocks.
+    \sa Animation
+*/
 class Move : public Animation
 {
     public:
@@ -38,9 +38,6 @@ class Move : public Animation
         virtual bool animate();
 
     private:
-        SDL_Point m_point;
-        int m_speed;
+        SDL_Point m_point; //!< Target of move animation.
+        int m_speed; //!< Speed of the animation.
 };
-
-
-#endif // _MOVE_HPP_

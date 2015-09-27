@@ -1,15 +1,15 @@
-#ifndef _NUMBEREDRECT_HPP_
-#define _NUMBEREDRECT_HPP_
+#pragma once
 #include <SDL.h>
 #include <unordered_map>
 #include "../Definitions/Definitions.hpp"
 #include "Rect.hpp"
 #include "../Window/Window.hpp"
 
-/*!
- * \brief Rect with stored number displayed on the board.
- * \sa Rect
- */
+/**!
+    \ingroup client
+    \brief Rect with stored number displayed on the board.
+    \sa Rect
+*/
 class NumberedRect : public Rect
 {
     public:
@@ -54,5 +54,3 @@ class NumberedRect : public Rect
         Blocks m_number; //!< NumberedRect value as Blocks. \sa Blocks
         static std::unordered_map<std::size_t, SDL_Texture*> NUMBERS; //!< HashTable of SDL_Textures of numbers. \sa SDL_Texture
 };
-
-#endif // _NUMBEREDRECT_HPP_

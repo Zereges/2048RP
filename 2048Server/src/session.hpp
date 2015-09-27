@@ -10,6 +10,7 @@
 using boost::asio::ip::tcp;
 
 /**!
+    \ingroup server
     \brief Class representing user session.
     \sa base_session
 */

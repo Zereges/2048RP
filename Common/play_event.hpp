@@ -5,6 +5,7 @@
 #include "../Common/main.hpp"
 
 /**!
+    \ingroup common
     \brief Class representing play by the client.
     \sa player_data::play
 */
@@ -146,7 +147,7 @@ class play_event
         bool won() const { return m_won; }
 
         //! Checks whether something happened last turn.
-        //! \retrun true if something happened, false otherwise.
+        //! \return true if something happened, false otherwise.
         bool played() const { return !m_block_operations.empty(); }
 
     private:

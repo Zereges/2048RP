@@ -9,7 +9,8 @@
 #include "../../Common/hasher.hpp"
 
 /**!
-    Wrapper around C++ SQL Connector providing interface for manipulating with MySQL database.
+    \ingroup server
+    \brief Wrapper around C++ SQL Connector providing interface for manipulating with MySQL database.
 */
 class sql_connection
 {

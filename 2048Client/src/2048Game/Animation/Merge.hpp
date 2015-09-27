@@ -1,5 +1,4 @@
-#ifndef _MERGE_HPP_
-#define _MERGE_HPP_
+#pragma once
 #include <SDL.h>
 #include <memory>
 #include <vector>
@@ -7,10 +6,11 @@
 #include "../Definitions/Rect.hpp"
 #include "Animation.hpp"
 
-/*!
- * \brief Merge class handling animation of merging of blocks.
- * \sa Animation
- */
+/**!
+    \ingroup client
+    \brief Merge class handling animation of merging of blocks.
+    \sa Animation
+*/
 class Merge : public Animation
 {
     public:
@@ -39,12 +39,8 @@ class Merge : public Animation
         virtual bool animate();
 
     private:
-        int m_speed; //!< Speed of merge animation
-        SDL_Point m_point; //!< Target of merge animation
-        int m_size_x, m_size_y;
-
-        bool merge_animate();
+        SDL_Point m_point; //!< Target of merge animation.
+        int m_speed; //!< Speed of merge animation.
+        int m_size_x; //!< Targetted size_x of Animation::m_rect.
+        int m_size_y; //!< Targetted size_y of Animation::m_rect.
 };
-
-
-#endif // _MERGE_HPP_

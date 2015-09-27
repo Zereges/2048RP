@@ -6,6 +6,7 @@
 #include "../../Common/main.hpp"
 
 /**!
+    \ingroup client
     \brief Class for accepting messages from the server.
 */
 class listener
@@ -42,7 +43,7 @@ class listener
         }
 
     private:
-        std::deque<std::string> m_msgs; //< Msgs from the server
+        std::deque<std::string> m_msgs; //!< Msgs from the server
         std::mutex m_mutex; //!< Mutex for handling access to queue.
         std::condition_variable m_cond; //!< Condition variable to implement blocking mechanics.
         bool& m_connected; //!< Reference to connected status of the client. \sa client::m_connected

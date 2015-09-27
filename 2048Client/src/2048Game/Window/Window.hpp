@@ -1,15 +1,15 @@
-#ifndef _WINDOW_HPP_
-#define _WINDOW_HPP_
+#pragma once
 #include <memory>
 #include <string>
 #include <SDL.h>
 #include "../Definitions/Definitions.hpp"
 
-/*!
- * \brief Wrapper around SDL_Window and SDL_Renderer allowing easy creation and drawing rects on the window.
- * Also allows easy handling of common user requests.
- * \sa GameWindow, StatsWindow
- */
+/**!
+    \ingroup client
+    \brief Wrapper around SDL_Window and SDL_Renderer allowing easy creation and drawing rects on the window.
+    Also allows easy handling of common user requests.
+    \sa GameWindow, StatsWindow
+*/
 class Window
 {
     public:
@@ -51,5 +51,3 @@ class Window
         SDL_Window* m_window; //!< C-pointer to SDL_Window. \sa SDL_Window
         const SDL_Renderer* m_renderer; //!< C-pointer to const SDL_Renderer. \sa SDL_Renderer
 };
-
-#endif // _WINDOW_HPP_

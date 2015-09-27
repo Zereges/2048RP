@@ -1,14 +1,13 @@
-#ifndef _GAME_WINDOW_HPP_
-#define _GAME_WINDOW_HPP_
+#pragma once
 #include <memory>
 #include <SDL.h>
 #include "Window.hpp"
 #include "../Definitions/Definitions.hpp"
 
-/*!
- * \brief Windows used for displaying Game with its animations.
- * \sa Window
- */
+/**!
+    \brief Windows used for displaying Game with its animations.
+    \sa Window
+*/
 class GameWindow : public Window
 {
     public:
@@ -58,12 +57,11 @@ class GameWindow : public Window
         }
 
     private:
-        TTF_Font* game_window_font;         //< Font used for whowing score.
-        SDL_Texture* game_over_texture;     //< Texture used for text display of player's game over.
-        SDL_Rect game_over_rect;            //< Position of game over text.
-        SDL_Texture* game_score_texture;    //< Texture used for displaying score.
-        SDL_Rect game_score_rect;           //< Position of game score.
-        SDL_Texture* stats_texture;         //< Texture used for displaying stats button.
-        SDL_Rect stats_rect;                //< Position of stats button.
+        TTF_Font* game_window_font;         //!< Font used for whowing score.
+        SDL_Texture* game_over_texture;     //!< Texture used for text display of player's game over.
+        SDL_Rect game_over_rect;            //!< Position of game over text.
+        SDL_Texture* game_score_texture;    //!< Texture used for displaying score.
+        SDL_Rect game_score_rect;           //!< Position of game score.
+        SDL_Texture* stats_texture;         //!< Texture used for displaying stats button.
+        SDL_Rect stats_rect;                //!< Position of stats button.
 };
-#endif // _GAME_WINDOW_HPP_

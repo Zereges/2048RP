@@ -1,17 +1,18 @@
-#ifndef _STATS_WINDOW_HPP_
-#define _STATS_WINDOW_HPP_
+#pragma once
 #include <memory>
 #include <SDL.h>
 #include "Window.hpp"
 #include "../Definitions/Definitions.hpp"
 
-/*!
- * \brief Window used for showing Game current and global statistics.
- * \sa Stats
- */
+/**!
+    \ingroup client
+    \brief Window used for showing Game current and global statistics.
+    \sa Stats
+*/
 class StatsWindow : public Window
 {
     public:
+    /*
         //! Basic constructor of Stats Window.
         //! \param width Window width
         //! \param height Window height
@@ -20,7 +21,7 @@ class StatsWindow : public Window
         //! \param tmp_stats R-value reference to temporary Stats object used as sumation of total stats and current stats.
         //! \sa Stats
         //StatsWindow(int width, int height, std::string name, const Stats& stats_current, Stats&& tmp_stats);
-        
+    */    
         //! Destructor freeing resources used in the window
         ~StatsWindow();
 
@@ -44,12 +45,10 @@ class StatsWindow : public Window
         //const Stats& m_stats_global; //!< Const reference of global stats.
 
         bool m_showing_current; //!< Indicator of shown stats (current / global)
-        SDL_Texture* texture_current;
-        SDL_Texture* texture_global;
-        SDL_Texture* texture_button;
-        SDL_Rect rect_current;
-        SDL_Rect rect_global;
-        SDL_Rect rect_button;
+        SDL_Texture* texture_current; //!< Texture representing current stats.
+        SDL_Texture* texture_global; //!< Texture representing global stats.
+        SDL_Texture* texture_button; //!< Texture representing switch button.
+        SDL_Rect rect_current; //!< Rect representing current stats.
+        SDL_Rect rect_global; //!< Rect representing global stats.
+        SDL_Rect rect_button; //!< Rect representing switch button.
 };
-
-#endif // _STATS_WINDOW_HPP_

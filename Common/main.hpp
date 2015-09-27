@@ -1,3 +1,7 @@
+/**
+    \defgroup common Common files among both modules.
+    @{
+*/
 #pragma once
 #include <sstream>
 #include <string>
@@ -89,6 +93,7 @@ namespace directions
 
 static const std::string PORT = "8881"; //!< Default port to connect to (and host server on).
 static const std::string HOST = "localhost"; //!< Default host to connect to.
+
 static const std::size_t SECONDS_UNTIL_TIMEOUT = 10; //!< Seconds until \ref connection_timed exception occurs.
 
 static const std::size_t BLOCK_COUNT_X = 4; //!< Number of Blocks in X coord.
@@ -103,11 +108,11 @@ static const Blocks WINNING_BLOCK = BLOCK_2048; //!< Block required in order to 
 struct connection_timed : public std::runtime_error
 {
     //! Calls \a std::runtime_error exception's constructor appropriately.
-    //! \param message text of exception.
+    //! \param message text of the exception.
     //! \param _type \ref ::message that caused exception
     explicit connection_timed(const std::string& message, const std::string& _type) : std::runtime_error(message), type(_type) { }
     //! Calls \a std::runtime_error exception's constructor appropriately.
-    //! \param message text of exception.
+    //! \param message text of the exception.
     //! \param _type \ref ::message that caused exception
     explicit connection_timed(const char* message, const std::string& _type) : std::runtime_error(message), type(_type) { }
 
@@ -118,10 +123,10 @@ struct connection_timed : public std::runtime_error
 struct cant_connect : public std::runtime_error
 {
     //! Calls \a std::runtime_error exception's constructor appropriately.
-    //! \param message text of exception.
+    //! \param message text of the exception.
     explicit cant_connect(const std::string& message) : std::runtime_error(message) { }
     //! Calls \a std::runtime_error exception's constructor appropriately.
-    //! \param message text of exception.
+    //! \param message text of the exception.
     explicit cant_connect(const char* message) : std::runtime_error(message) { }
 };
 
@@ -129,10 +134,10 @@ struct cant_connect : public std::runtime_error
 struct invalid_message : public std::runtime_error
 {
     //! Calls \a std::runtime_error exception's constructor appropriately.
-    //! \param message text of exception.
+    //! \param message text of the exception.
     explicit invalid_message(const std::string& message) : std::runtime_error(message) { }
     //! Calls \a std::runtime_error exception's constructor appropriately.
-    //! \param message text of exception.
+    //! \param message text of the exception.
     explicit invalid_message(const char* message) : std::runtime_error(message) { }
 };
 
@@ -181,8 +186,10 @@ inline Blocks& operator++(Blocks& block)
     return block;
 }
 
-//! Compares incomming data by requested type. Data suits type, if first \a n chars of \a data and \type are same, where \a n is length of \a type.
+//! Compares incomming data by requested type. Data suits type, if first \a n chars of \a data and \a type are same, where \a n is length of \a type.
 //! \param data
 //! \param type
 //! \return true if \a data corresponds with \a type, false otherwise.
 inline bool compare_msg(const std::string& data, const std::string& type) { return data.compare(0, type.length(), type) == 0; }
+
+/** @} */

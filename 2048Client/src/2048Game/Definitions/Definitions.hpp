@@ -7,16 +7,17 @@
 #include <math.h>
 #include <vector>
 #include <memory>
-#include "../../Common/main.hpp"
+#include "../../../../Common/main.hpp"
 class Rect;
 class NumberedRect;
 
 typedef std::vector<Rect> Rects;
-typedef std::vector<std::vector<std::shared_ptr<NumberedRect> > > NumberedRects;
+typedef std::vector<std::vector<std::shared_ptr<NumberedRect>>> NumberedRects;
 
-/*!
- * \brief Abstract class containing definitions used throughout the program.
- */
+/**!
+    \ingroup client
+    \brief Abstract class containing definitions used throughout the program.
+*/
 class Definitions
 {
     public:

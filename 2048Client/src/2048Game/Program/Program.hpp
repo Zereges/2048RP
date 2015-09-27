@@ -1,12 +1,12 @@
-#ifndef _PROGRAM_HPP_
-#define _PROGRAM_HPP_
+#pragma once
 #include <vector>
 #include <string>
 #include "../../client.hpp"
 
-/*!
- * \brief Static class for handling program existence and SDL events.
- */
+/**!
+    \ingroup client
+    \brief Static class for handling program existence and SDL events.
+*/
 class Program
 {
     public:
@@ -34,5 +34,3 @@ class Program
         Program& operator=(Program&) = delete;
         Program& operator=(Program&&) = delete;
 };
-
-#endif // _PROGRAM_HPP_

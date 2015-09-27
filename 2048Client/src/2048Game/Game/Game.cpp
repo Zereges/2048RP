@@ -10,7 +10,7 @@
 #include "../Animation/Spawn.hpp"
 #include "../Animation/Merge.hpp"
 #include "../Window/StatsWindow.hpp"
-#include "../../Common/play_event.hpp"
+#include "../../../../Common/play_event.hpp"
 #define assert_coords(x, y) assert((x) >= 0 && (x) < Definitions::BLOCK_COUNT_X && (y) >= 0 && (y) < Definitions::BLOCK_COUNT_Y)
 
 Game::Game(GameWindow& window, const client_data_tuple& data, client& cl) : m_window(window), m_canplay(false), m_won(std::get<1>(data)),

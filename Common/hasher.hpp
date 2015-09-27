@@ -3,7 +3,8 @@
 #include <algorithm>
 
 /**!
-    Class providing hashing function used in password hashing.
+    \ingroup common
+    \brief Class providing hashing function used in password hashing.
 
     The sipher used is simple ceasar sipher with right shift of \ref SHIFT. Somehing like
     SHA-x would be more useful, but for testing purposes, it suffices.

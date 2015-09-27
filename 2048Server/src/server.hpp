@@ -9,6 +9,7 @@
 using boost::asio::ip::tcp;
 
 /**!
+    \ingroup server
     \brief Class for handling incomming requests.
 */
 class server

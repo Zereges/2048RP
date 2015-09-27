@@ -1,5 +1,4 @@
-#ifndef _SPAWN_HPP_
-#define _SPAWN_HPP_
+#pragma once
 #include <SDL.h>
 #include <memory>
 #include <vector>
@@ -7,10 +6,11 @@
 #include "../Definitions/Rect.hpp"
 #include "Animation.hpp"
 
-/*!
- * \brief Spawn class handling animation of spawning of new blocks.
- * \sa Animation
- */
+/**!
+    \ingroup client
+    \brief Spawn class handling animation of spawning of new blocks.
+    \sa Animation
+*/
 class Spawn : public Animation
 {
     public:
@@ -23,10 +23,10 @@ class Spawn : public Animation
         //! \sa Animator::add()
         Spawn(Rect& rect, const SDL_Point& point, int size_x = Definitions::BLOCK_SIZE_X,
             int size_y = Definitions::BLOCK_SIZE_X, int speed = Definitions::DEFAULT_SPAWN_SPEED) :
-            Animation(&rect), m_point(point), m_size_x(size_x), m_size_y(size_y), m_speed(speed) { }
+            Animation(&rect), m_point(point), m_speed(speed), m_size_x(size_x), m_size_y(size_y) { }
 
         //! Default copy constructor.
-        Spawn(const Spawn& s) : Animation(s.m_rect), m_size_x(s.m_size_x), m_size_y(s.m_size_y), m_speed(s.m_speed), m_point(s.m_point) { }
+        Spawn(const Spawn& s) : Animation(s.m_rect), m_point(s.m_point), m_speed(s.m_speed), m_size_x(s.m_size_x), m_size_y(s.m_size_y) { }
 
         //! Default copy assignment.
         Spawn& operator=(const Spawn&) = default;
@@ -41,8 +41,8 @@ class Spawn : public Animation
        virtual bool animate();
 
     private:
-        int m_speed;
-        int m_size_x, m_size_y;
-        SDL_Point m_point;
+        SDL_Point m_point; //!< Target of merge animation.
+        int m_speed; //!< Speed of spawn animation.
+        int m_size_x; //!< Targetted size_x of Animation::m_rect.
+        int m_size_y; //!< Targetted size_y of Animation::m_rect.
 };
-#endif // _SPAWN_HPP_

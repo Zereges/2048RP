@@ -4,6 +4,7 @@
 class message;
 
 /**!
+    \ingroup server
     \brief base session as abstract class. Used in order to break circular dependencies.
     \sa session, session_container
 */

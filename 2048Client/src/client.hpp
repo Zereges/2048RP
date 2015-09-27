@@ -32,6 +32,7 @@ using boost::asio::ip::tcp;
 #endif
 
 /**!
+    \ingroup client
     \brief Class representing a client being connected to the server.
 */
 class client

@@ -1,3 +1,5 @@
+/** \defgroup client Client part of the application. */
+
 #include <iostream>
 #include <string>
 #include <random>

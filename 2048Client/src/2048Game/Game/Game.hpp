@@ -1,5 +1,4 @@
-#ifndef _GAME_HPP_
-#define _GAME_HPP_
+#pragma once
 #include <SDL.h>
 #include <vector>
 #include <exception>
@@ -12,14 +11,16 @@
 #include "../Window/GameWindow.hpp"
 #include "../../client.hpp"
 
-/*!
- * \brief Game class handling user events and game state
- */
+/**!
+    \ingroup client
+    \brief Game class handling user events and game state
+*/
 class Game
 {
     public:
         //! Base class constuctor
         //! \param window Reference to window where to draw interface and game state
+        //! \param data Data to begin with when initializing game.
         //! \param cl Client to use.
         Game(GameWindow& window, const client_data_tuple& data, client& cl);
         
@@ -142,6 +143,7 @@ class Game
         //! \param to_y y coord where to move.
         void merge_to(int from_x, int from_y, int to_x, int to_y);
 
+        //! Processes play_event retrieved from the server.
+        //! \param pl_event reference to \ref play_event.
         void process_play(const play_event& pl_event);
 };
-#endif // _GAME_HPP_

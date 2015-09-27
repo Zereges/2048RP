@@ -1,3 +1,5 @@
+/** \defgroup server Server part of the application. */
+
 #include <iostream>
 #include <boost/asio.hpp>
 #include "../../Common/main.hpp"

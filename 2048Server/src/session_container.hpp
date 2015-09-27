@@ -7,6 +7,7 @@
 #include "../../Common/message.hpp"
 
 /**!
+    \ingroup server
     \brief Class for storing and managing sessions.
     \sa base_session, session
 */

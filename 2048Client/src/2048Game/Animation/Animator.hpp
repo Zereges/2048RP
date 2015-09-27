@@ -1,5 +1,4 @@
-#ifndef _ANIMATOR_HPP_
-#define _ANIMATOR_HPP_
+#pragma once
 #include <SDL.h>
 #include <memory>
 #include <vector>
@@ -8,10 +7,11 @@
 #include "../Definitions/Rect.hpp"
 #include "Animation.hpp"
 
-/*!
- * \brief Animation class handles procession of animation of Rects.
- * \sa Merge, Move, Spawn
- */
+/**!
+    \ingroup client
+    \brief Animation class handles procession of animation of Rects.
+    \sa Merge, Move, Spawn
+*/
 class Animator
 {
     public:
@@ -41,4 +41,3 @@ class Animator
     private:
         std::vector<std::shared_ptr<Animation>> m_animation; //!< Saved animation events
 };
-#endif // _ANIMATOR_HPP_

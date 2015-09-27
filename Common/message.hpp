@@ -4,6 +4,7 @@
 #include <cstring>
 
 /**!
+    \ingroup common
     \brief Class representing messages being sent between client and server.
 */
 class message
@@ -44,7 +45,7 @@ class message
         char* body() { return m_data + HEADER_LENGTH; }
 
         //! Gets total length of the message
-        //! \return total length of the message including fixed \ref HEADER_LENGTH and variable \ref m_body_lenght
+        //! \return total length of the message including fixed \ref HEADER_LENGTH and variable \ref m_body_length.
         size_t length() const { return HEADER_LENGTH + m_body_length; }
 
         //! Getter for body lenght.

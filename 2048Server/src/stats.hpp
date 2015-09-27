@@ -5,12 +5,15 @@
 #include <chrono>
 #include "../../Common/main.hpp"
 
-/*! \brief Stats class representing statistics for current game and global playtrough.
- *  Provides interface for easy manipulation with statistics during game play.
+/**!
+    \ingroup server
+    \brief Stats class representing statistics for current game and global playtrough.
+    Provides interface for easy manipulation with statistics during game play.
  */
 class stats
 {
     public:
+        //! Container class for storing stat values.
         using container_t = std::vector<long long>;
 
         //! Enum for StatTypes.
@@ -102,7 +105,7 @@ class stats
         void highest_score(long long score) { m_stats[StatTypes::HIGHEST_SCORE] = std::max(score, m_stats[StatTypes::HIGHEST_SCORE]); }
 
         //! Updates statistics for maximal block
-        //! \param number Current merged number.
+        //! \param block Current merged block.
         void maximal_block(Blocks block) { m_stats[StatTypes::MAXIMAL_BLOCK] = std::max(static_cast<long long>(block), m_stats[StatTypes::MAXIMAL_BLOCK]); }
 
         //! Returns inner container implementation of stats. Used for \ref sql_connection::save_data

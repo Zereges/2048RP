@@ -1,11 +1,11 @@
-#ifndef _ANIMATION_HPP_
-#define _ANIMATION_HPP_
+#pragma once
 #include <SDL.h>
 #include "../Definitions/Rect.hpp"
 
-/*!
- *  \brief Interface for animating events throughout playthrough.
- */
+/**!
+    \ingroup client
+    \brief Interface for animating events throughout playthrough.
+*/
 class Animation
 {
     public:
@@ -24,5 +24,3 @@ class Animation
         Animation(Rect* rect) : m_rect(rect) { }
         Rect* m_rect; //!< Pointer to animated Rect.
 };
-
-#endif // _ANIMATION_HPP_

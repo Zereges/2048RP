@@ -1,14 +1,14 @@
-#ifndef _RECT_HPP_
-#define _RECT_HPP_
+#pragma once
 #include <SDL.h>
 #include <memory> // size_t
 #include "../Definitions/Definitions.hpp"
 #include "../Window/Window.hpp"
 
-/*!
- * \brief Wrapper around SDL_Rect coloring posibility.
- * \sa SDL_Rect, SDL_Color, SDL_Point
- */
+/**!
+    \ingroup client
+    \brief Wrapper around SDL_Rect coloring posibility.
+    \sa SDL_Rect, SDL_Color, SDL_Point
+*/
 class Rect
 {
     public:
@@ -54,4 +54,3 @@ class Rect
         SDL_Rect m_rect; //!< SDL_Rect containing coords and sizes of Rect. \sa SDL_Rect
         SDL_Color m_color; //!< SDL_Color containing RGB Color, that should be used when drawing the Rect. \sa SDL_Color
 };
-#endif // _RECT_HPP_

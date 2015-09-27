@@ -8,6 +8,7 @@
 #include "stats.hpp"
 
 /**!
+    \ingroup server
     \brief Class used to store player's data used in the game.
     \sa session
 */
@@ -147,5 +148,5 @@ class player_data
         stats m_stats; //!< Stats of current session.
         stats m_global_stats; //!< Global stats for the player.
         std::chrono::system_clock::time_point m_game_start; //!< Time point of game start.
-        std::chrono::system_clock::time_point m_session_start; //< Time point of session start.
+        std::chrono::system_clock::time_point m_session_start; //!< Time point of session start.
 };
