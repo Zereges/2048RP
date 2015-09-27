@@ -93,8 +93,8 @@ class play_event
             m_block_operations.emplace_back(MERGE, std::make_pair(std::make_pair(from_x, from_y), std::make_pair(to_x, to_y)));
         }
 
-        void random_block(std::pair<Blocks, coords>&& block_data) { m_random_block = std::move(block_data); }
-        const std::pair<Blocks, coords>& random_block() const { return m_random_block; }
+        void random_block(random_block_record&& block_data) { m_random_block = std::move(block_data); }
+        const random_block_record& random_block() const { return m_random_block; }
 
         void score(int score) { m_score += score; }
         int score() const { return m_score; }
@@ -112,7 +112,7 @@ class play_event
         using block_operation = std::pair<operation, from_to_coords>;
 
         std::vector<block_operation> m_block_operations;
-        std::pair<Blocks, coords> m_random_block;
+        random_block_record m_random_block;
         bool m_won;
         bool m_lost;
         int m_score;

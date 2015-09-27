@@ -36,8 +36,3 @@ int Program::start(const client_data_tuple& data, client& cl)
     }
     return m_ret_value;
 }
-
-void Program::stop(bool force)
-{
-    m_is_running = false;
-}

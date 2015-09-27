@@ -36,6 +36,7 @@ class session : public base_session, public boost::enable_shared_from_this<sessi
 
         void save_data()
         {
+            m_data.update_stats();
             m_sql.save_data(m_data);
         }
 
@@ -57,7 +58,7 @@ class session : public base_session, public boost::enable_shared_from_this<sessi
                 {
                     handle_message(m_read_msg);
                 }
-                catch (std::invalid_argument&)
+                catch (invalid_message&)
                 {
                     m_sessions.leave(shared_from_this());
                 }

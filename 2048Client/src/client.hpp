@@ -106,6 +106,22 @@ class client
             return make_tuple(vec[1], vec[2] == "1" ? true : false, std::stoi(vec[3]));
         }
 
+        std::vector<random_block_record> restart()
+        {
+            write(message(message_types::MSG_RESTART));
+            std::string response = m_listener.get_response();
+            std::stringstream ss(response.substr(response.find("+") + 1));
+            std::vector<random_block_record> res;
+            random_block_record rng_block; int hlp;
+            while (ss >> hlp && ss >> rng_block.second.first && ss >> rng_block.second.second)
+            {
+                rng_block.first = static_cast<Blocks>(hlp);
+                res.push_back(std::move(rng_block));
+            }
+
+            return std::move(res);
+        }
+
     private:
         void handle_connect(const boost::system::error_code& error)
         {

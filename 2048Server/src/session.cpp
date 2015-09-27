@@ -53,6 +53,15 @@ void session::handle_message(const message& mes)
 
         deliver(message(message_types::MSG_PLAY_OK + "+" + pl_event.serialize()));
     }
+    else if (compare_msg(data, message_types::MSG_RESTART))
+    {
+        auto vec = m_data.restart();
+        std::string res = message_types::MSG_RESTART_OK + "+";
+        for (const auto& item : vec)
+            res += std::to_string(item.first) + " " + std::to_string(item.second.first) + " " + std::to_string(item.second.second) + " ";
+        res.pop_back();
+        deliver(message(std::move(res)));
+    }
     else
         throw invalid_message("Client sent invalid message format.");
 }

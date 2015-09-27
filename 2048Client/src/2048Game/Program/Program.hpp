@@ -21,8 +21,7 @@ class Program
         static bool is_running() { return m_is_running; }
 
         //! Stops the program.
-        //! \param force If provided, program will be closed violently.
-        static void stop(bool force);
+        static void stop() { m_is_running = false; }
 
     private:
         static bool m_is_running; //!< Indicates whether program is running.

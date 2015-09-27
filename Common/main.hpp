@@ -6,9 +6,12 @@
 #include <cmath>
 #include <memory>
 
+//TODO: Restart game implementation
+
 class stats;
 using coords = std::pair<int, int>;
-using data_tuple = std::tuple<std::string, bool, int, int, std::unique_ptr<stats>>;
+
+using data_tuple = std::tuple<std::string, bool, int, std::unique_ptr<stats>>;
 using client_data_tuple = std::tuple<std::string, bool, int>;
 
 //! Enum of playable directions.
@@ -47,6 +50,7 @@ enum Blocks
     MAX_BLOCKS,
 };
 
+using random_block_record = std::pair<Blocks, coords>;
 
 namespace message_types
 {
@@ -59,6 +63,9 @@ namespace message_types
 
     static const std::string MSG_PLAY = "PLA-";
     static const std::string MSG_PLAY_OK = MSG_PLAY + "OK";
+
+    static const std::string MSG_RESTART = "RES-";
+    static const std::string MSG_RESTART_OK = MSG_RESTART + "OK";
 };
 
 namespace directions
@@ -118,17 +125,6 @@ inline std::vector<std::string> split(const std::string& str, char delim)
 //! \param c Chance to simulate.
 //! \return True if chance happened, false otherwise.
 inline bool chance(int c) { return rand() % 100 < c; }
-
-template <typename I>
-inline I random_element(I begin, I end)
-{
-    const unsigned long n = std::distance(begin, end);
-    if (n == 0)
-        return begin;
-
-    std::advance(begin, std::rand() % n); // may not be that much random.
-    return begin;
-}
 
 //! Computes 2 to the power of argument.
 //! \param block exponent of pow function.

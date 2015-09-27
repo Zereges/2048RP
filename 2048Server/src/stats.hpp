@@ -77,7 +77,7 @@ class stats
         void won(const std::chrono::duration<long long>& duration)
         {
             ++m_stats[StatTypes::GAME_WINS];
-            m_stats[StatTypes::FASTEST_WIN] = std::min(duration.count(), m_stats[StatTypes::FASTEST_WIN]);
+            m_stats[StatTypes::FASTEST_WIN] = m_stats[StatTypes::FASTEST_WIN] != 0 ? std::min(duration.count(), m_stats[StatTypes::FASTEST_WIN]) : duration.count();
             m_stats[StatTypes::SLOWEST_WIN] = std::max(duration.count(), m_stats[StatTypes::SLOWEST_WIN]);
             m_stats[StatTypes::TOTAL_TIME_PLAYED] += duration.count();
         }
@@ -88,7 +88,7 @@ class stats
         void game_over(const std::chrono::duration<long long>& duration)
         {
             ++m_stats[StatTypes::GAME_LOSES];
-            m_stats[StatTypes::FASTEST_LOSE] = std::min(duration.count(), m_stats[StatTypes::FASTEST_LOSE]);
+            m_stats[StatTypes::FASTEST_LOSE] = m_stats[StatTypes::FASTEST_LOSE] != 0 ? std::min(duration.count(), m_stats[StatTypes::FASTEST_LOSE]) : duration.count();
             m_stats[StatTypes::SLOWEST_LOSE] = std::max(duration.count(), m_stats[StatTypes::SLOWEST_LOSE]);
             m_stats[StatTypes::TOTAL_TIME_PLAYED] += duration.count();
         }
@@ -108,6 +108,7 @@ class stats
 
         const container_t& get_impl() const { return m_stats; }
 
+        void update_time_played(long long dur) { m_stats[StatTypes::TOTAL_TIME_PLAYED] = dur; }
 
     private:
         container_t m_stats; //!< std::vector of statistics values.

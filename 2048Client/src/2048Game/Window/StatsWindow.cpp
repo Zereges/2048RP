@@ -25,7 +25,7 @@ void StatsWindow::wait_for_close()
     }
     close();
 }
-
+/*
 StatsWindow::StatsWindow(int width, int height, std::string name, const Stats& stats_current, Stats&& tmp_stats) :
     Window(width, height, name), m_stats_current(stats_current), m_stats_global(tmp_stats), m_showing_current(true)
 {
@@ -56,7 +56,7 @@ StatsWindow::StatsWindow(int width, int height, std::string name, const Stats& s
     SDL_RenderCopy(const_cast<SDL_Renderer*>(get_renderer()), texture_button, NULL, &rect_button);
     SDL_RenderPresent(const_cast<SDL_Renderer*>(get_renderer()));
 }
-
+*/
 StatsWindow::~StatsWindow()
 {
     SDL_DestroyTexture(texture_current);

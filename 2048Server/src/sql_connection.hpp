@@ -32,7 +32,7 @@ class sql_connection
         std::unique_ptr<stats> get_stats(int id)
         {
             stats::container_t data(stats::MAX_STATS, 0l);
-            auto res = execute_query("SELECT stats_id, value FROM stats_current WHERE player_id = " + std::to_string(id) + ";");
+            auto res = execute_query("SELECT stats_id, value FROM stats_global WHERE player_id = " + std::to_string(id) + ";");
             while (res->next())
                 data[res->getInt("stats_id")] = res->getInt("value");
             
@@ -41,20 +41,19 @@ class sql_connection
 
         data_tuple get_data(int id)
         {
-            auto res = execute_query("SELECT id, data, won, score, time_played FROM player_data WHERE id = " + std::to_string(id) + ";");
+            auto res = execute_query("SELECT id, data, won, score FROM player_data WHERE id = " + std::to_string(id) + ";");
             if (res->next())
-                return std::make_tuple(res->getString("data"), res->getBoolean("won"), res->getInt("score"), res->getInt("time_played"), get_stats(id));
+                return std::make_tuple(res->getString("data"), res->getBoolean("won"), res->getInt("score"), get_stats(id));
             throw invalid_message("Client requested data without being logged in.");
         }
 
         void save_data(const player_data& data)
         {
-            execute("REPLACE INTO player_data (id, data, won, score, time_played) VALUES (" +
+            execute("REPLACE INTO player_data (id, data, won, score) VALUES (" +
                 std::to_string(data.get_id()) + ", '" + 
                 data.serialize_rects() + "', " + 
                 (data.get_won() ? "1" : "0") + ", " + 
-                std::to_string(data.get_score()) + ", " +
-                std::to_string(data.get_played().count()) + 
+                std::to_string(data.get_score()) + 
             ");");
             save_stats(data.get_id(), data.get_stats_impl());
         }
@@ -72,14 +71,16 @@ class sql_connection
                     case stats::MAXIMAL_BLOCK:
                     case stats::SLOWEST_WIN:
                     case stats::SLOWEST_LOSE:
-                        execute("INSERT INTO stats_global (player_id, stats_id, value) VALUES " + hlp +
-                                " ON DUPLICATE KEY UPDATE value = CASE WHEN value < " + std::to_string(stats[i]) + " THEN " + std::to_string(stats[i]) + " ELSE value END;");
+                        if (stats[i])
+                            execute("INSERT INTO stats_global (player_id, stats_id, value) VALUES " + hlp +
+                                    " ON DUPLICATE KEY UPDATE value = CASE WHEN value < " + std::to_string(stats[i]) + " THEN " + std::to_string(stats[i]) + " ELSE value END;");
                         break;
 
                     case stats::FASTEST_WIN:
                     case stats::FASTEST_LOSE:
-                        execute("INSERT INTO stats_global (player_id, stats_id, value) VALUES " + hlp +
-                                " ON DUPLICATE KEY UPDATE value = CASE WHEN value > " + std::to_string(stats[i]) + " THEN " + std::to_string(stats[i]) + " ELSE value END;");
+                        if (stats[i])
+                            execute("INSERT INTO stats_global (player_id, stats_id, value) VALUES " + hlp +
+                                    " ON DUPLICATE KEY UPDATE value = CASE WHEN value > " + std::to_string(stats[i]) + " THEN " + std::to_string(stats[i]) + " ELSE value END;");
                         break;
                     
                     default:

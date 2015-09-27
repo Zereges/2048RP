@@ -4,7 +4,6 @@
 #include <SDL.h>
 #include "Window.hpp"
 #include "../Definitions/Definitions.hpp"
-#include "../Stats/Stats.hpp"
 
 /*!
  * \brief Window used for showing Game current and global statistics.
@@ -20,7 +19,7 @@ class StatsWindow : public Window
         //! \param stats_current Const reference to Stats regaring current game.
         //! \param tmp_stats R-value reference to temporary Stats object used as sumation of total stats and current stats.
         //! \sa Stats
-        StatsWindow(int width, int height, std::string name, const Stats& stats_current, Stats&& tmp_stats);
+        //StatsWindow(int width, int height, std::string name, const Stats& stats_current, Stats&& tmp_stats);
         
         //! Destructor freeing resources used in the window
         ~StatsWindow();
@@ -41,8 +40,8 @@ class StatsWindow : public Window
         void switch_stats();
 
     private:
-        const Stats& m_stats_current; //!< Const reference of current stats.
-        const Stats& m_stats_global; //!< Const reference of global stats.
+        //const Stats& m_stats_current; //!< Const reference of current stats.
+        //const Stats& m_stats_global; //!< Const reference of global stats.
 
         bool m_showing_current; //!< Indicator of shown stats (current / global)
         SDL_Texture* texture_current;

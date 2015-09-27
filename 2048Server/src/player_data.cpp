@@ -103,9 +103,7 @@ play_event player_data::play(Directions direction)
 
     if (pl_event.played())
     {
-        auto rng_block = random_block();
-        m_rects[rng_block.second.first][rng_block.second.second] = rng_block.first;
-        pl_event.random_block(std::move(rng_block));
+        pl_event.random_block(random_block());
         
         int score_gained = pl_event.score();
         m_score += score_gained;
@@ -129,15 +127,33 @@ play_event player_data::play(Directions direction)
     return std::move(pl_event);
 }
 
-std::pair<Blocks, coords> player_data::random_block()
+random_block_record player_data::random_block()
 {
     std::vector<coords> coord;
     for (std::size_t x = 0; x < BLOCK_COUNT_X; ++x)
         for (std::size_t y = 0; y < BLOCK_COUNT_Y; ++y)
             if (m_rects[x][y] == 0)
-                coord.emplace_back(x, y);
+                coord.emplace_back(x, y);    
+    std::random_shuffle(coord.begin(), coord.end());
+    Blocks block = chance(BLOCK_4_SPAWN_CHANCE) ? BLOCK_4 : BLOCK_2;
+
+    m_rects[coord[0].first][coord[0].second] = block;
+    return { block, coord[0] };
+}
+
+std::vector<random_block_record> player_data::restart()
+{
+    m_score = 0;
+    m_won = false;
+    m_rects = std::vector<std::vector<Blocks>>(BLOCK_COUNT_X, std::vector<Blocks>(BLOCK_COUNT_Y, BLOCK_0));
+    m_stats.restart();
     
-    return { chance(BLOCK_4_SPAWN_CHANCE) ? BLOCK_4 : BLOCK_2, *random_element(coord.begin(), coord.end()) };
+    m_game_start = std::chrono::system_clock::now();
+
+    std::vector<random_block_record> res;
+    for (std::size_t i = 0; i < DEFAULT_START_BLOCKS; ++i)
+        res.push_back(random_block());
+    return std::move(res);
 }
 
 

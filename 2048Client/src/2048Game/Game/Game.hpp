@@ -10,7 +10,6 @@
 #include "../Definitions/NumberedRect.hpp"
 #include "../Animation/Animator.hpp"
 #include "../Window/GameWindow.hpp"
-#include "../Stats/Stats.hpp"
 #include "../../client.hpp"
 
 /*!
@@ -98,16 +97,11 @@ class Game
             if (m_won)
                 return;
 
-            m_stats.lose(m_start_time);
             m_canplay = false;
         }
 
         //! Handles winning of the game.
-        void won()
-        {
-            m_won = true;
-            m_stats.win(m_start_time);
-        }
+        void won() { m_won = true; }
 
         //! Stops the game play.
         void stop() { m_canplay = false; }
@@ -131,9 +125,6 @@ class Game
         bool m_canplay;         //!< Tells whether player game is being played.
         bool m_won;             //!< Indicates, that player managed to win this game.
         GameWindow& m_window;   //!< Reference to Window class showing current game.
-        Stats m_stats;          //!< Stats regarding current game.
-        Stats m_stats_global;   //!< Global stats for player.
-        time_t m_start_time;    //!< Time of latest m_stats update.
         long long m_score;      //!< Score earned in current game.
         client& m_client;       //!< Reference to client.
 

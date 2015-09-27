@@ -14,7 +14,7 @@
 #define assert_coords(x, y) assert((x) >= 0 && (x) < Definitions::BLOCK_COUNT_X && (y) >= 0 && (y) < Definitions::BLOCK_COUNT_Y)
 
 Game::Game(GameWindow& window, const client_data_tuple& data, client& cl) : m_window(window), m_canplay(false), m_won(std::get<1>(data)),
-    m_start_time(0), m_score(std::get<2>(data)), m_stats_global(Definitions::STATS_FILE_NAME, m_window), m_client(cl)
+    m_score(std::get<2>(data)), m_client(cl)
 {
     m_rects.resize(Definitions::BLOCK_COUNT_X, std::vector<std::shared_ptr<NumberedRect>>(Definitions::BLOCK_COUNT_Y, nullptr));
 
@@ -49,12 +49,7 @@ void Game::event_handler(const SDL_Event& event)
     {
         case SDL_QUIT:
         {
-            Program::stop(true);
-            std::ofstream file(Definitions::STATS_FILE_NAME, std::ofstream::binary);
-            m_stats_global += m_stats;
-            file << m_stats_global;
-            if (file.fail())
-                m_window.warning("Could not save stats to " + Definitions::STATS_FILE_NAME + ".");
+            Program::stop();
             break;
         }
         case SDL_KEYDOWN:
@@ -74,7 +69,7 @@ void Game::key_handler(const SDL_KeyboardEvent& keyevent)
         case SDLK_q:
             if (keyevent.keysym.mod & (KMOD_RCTRL | KMOD_LCTRL))
             {
-                Program::stop(false);
+                Program::stop();
             }
             break;
         case SDLK_LEFT: play(LEFT); break;
@@ -88,8 +83,6 @@ void Game::key_handler(const SDL_KeyboardEvent& keyevent)
 void Game::start()
 {
     m_canplay = true;
-    m_won = false;
-    m_start_time = time(0);
     m_window.update_score(std::to_string(m_score));
 }
 
@@ -114,8 +107,6 @@ void Game::move_to(int from_x, int from_y, int to_x, int to_y)
     m_animator.add<Move>(*m_rects[from_x][from_y], get_block_coords(to_x, to_y));
     m_rects[to_x][to_y] = m_rects[from_x][from_y];
     m_rects[from_x][from_y] = nullptr;
-
-    m_stats.move();
 }
 
 void Game::merge_to(int from_x, int from_y, int to_x, int to_y)
@@ -126,14 +117,9 @@ void Game::merge_to(int from_x, int from_y, int to_x, int to_y)
     m_animator.add<Merge>(*m_rects[to_x][to_y]);
     int number = m_rects[to_x][to_y]->next_number();
     m_rects[from_x][from_y] = nullptr;
-    
-    m_stats.score(number);
-    m_stats.highest_score(m_score);
-    m_stats.maximal_block(number);
 
     if (!m_won && number == Definitions::GAME_WIN_NUMBER)
         won();
-    m_stats.merge();
 }
 
 bool Game::spawn_block(Blocks block, int x, int y)
@@ -149,28 +135,35 @@ bool Game::spawn_block(Blocks block, int x, int y)
 
 void Game::restart()
 {
+    auto vec = m_client.restart();
+
     m_canplay = false;
-    m_stats.restart(m_start_time);
     m_animator.clear();
+    m_score = 0;
+    m_won = false;
     m_rects = NumberedRects(Definitions::BLOCK_COUNT_X, std::vector<std::shared_ptr<NumberedRect>>(Definitions::BLOCK_COUNT_Y, nullptr));
+    for (const auto& i : vec)
+        spawn_block(i.first, i.second.first, i.second.second);
     start();
 }
 
 void Game::show_stats()
 {
+    /*
     time_t now = time(0);
     m_stats.update_time(now - m_start_time);
     Stats tmp_stats = m_stats + m_stats_global;
     m_start_time = now;
 
     TTF_Font* font = TTF_OpenFont(Definitions::DEFAULT_FONT_NAME.c_str(), Definitions::STATS_FONT_SIZE);
-    int adv; /* = */ TTF_GlyphMetrics(font, 'a', NULL, NULL, NULL, NULL, &adv); // Letter width, since font is monospaced, all letters share the same width 
+    int adv; TTF_GlyphMetrics(font, 'a', NULL, NULL, NULL, NULL, &adv); // Letter width, since font is monospaced, all letters share the same width 
     int width = (tmp_stats.max_name_size() + Definitions::STATS_DELIMITER.size() + tmp_stats.max_value_size()) * adv;
     int heigth = StatTypes::MAX_STATS * TTF_FontLineSkip(font); // Line height
     StatsWindow stats_window(width, heigth + Definitions::STATS_BUTTON_HEIGHT, Definitions::STATS_WINDOW_NAME, m_stats, std::move(tmp_stats));
     m_window.hide();
     stats_window.wait_for_close();
     m_window.show();
+    */
 }
 
 void Game::process_play(const play_event& pl_event)

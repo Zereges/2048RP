@@ -20,9 +20,9 @@ class player_data
 
             m_won = std::get<1>(data);
             m_score = std::get<2>(data);
-            m_time_played = std::chrono::duration<long long>(std::get<3>(data));
-            m_stats = std::move(*std::get<4>(data));
+            m_global_stats = std::move(*std::get<3>(data));
             m_game_start = std::chrono::system_clock::now();
+            m_session_start = m_game_start;
         }
 
         std::string serialize_rects() const
@@ -50,7 +50,12 @@ class player_data
 
         std::chrono::duration<long long> get_played() const
         {
-            return std::chrono::duration_cast<std::chrono::duration<long long>>(std::chrono::system_clock::now() - m_game_start + m_time_played);
+            return std::chrono::duration_cast<std::chrono::duration<long long>>(std::chrono::system_clock::now() - m_game_start);
+        }
+
+        std::chrono::duration<long long> get_played_session() const
+        {
+            return std::chrono::duration_cast<std::chrono::duration<long long>>(std::chrono::system_clock::now() - m_session_start);
         }
 
         play_event play(Directions direction);
@@ -59,10 +64,14 @@ class player_data
 
         void merge_to(int from_x, int from_y, int to_x, int to_y);
 
+        std::vector<random_block_record> restart();
+
         //! Inserts random block on board.
         //! \return Pair of \ref Blocks (to be spawned) and coords (where to be spawned).
         //! \sa Blocks, Game::spawn_block()
-        std::pair<Blocks, coords> random_block();
+        random_block_record random_block();
+
+        void update_stats() { m_stats.update_time_played(get_played_session().count()); }
 
         const stats::container_t& get_stats_impl() const { return m_stats.get_impl(); }
 
@@ -84,6 +93,7 @@ class player_data
         bool m_won;
         int m_score;
         stats m_stats;
+        stats m_global_stats;
         std::chrono::system_clock::time_point m_game_start;
-        std::chrono::duration<long long> m_time_played;
+        std::chrono::system_clock::time_point m_session_start;
 };

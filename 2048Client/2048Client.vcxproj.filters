@@ -31,9 +31,6 @@
     <Filter Include="2048Game\Header Files\Defs">
       <UniqueIdentifier>{0c04c473-3cae-4fc8-8d77-81dca9351d5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2048Game\Header Files\Stats">
-      <UniqueIdentifier>{451b07d8-cccd-4353-9a47-0f2ff717aa3b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2048Game\Source Files\Animation">
       <UniqueIdentifier>{d46bb048-2b2f-46be-b896-b7c50ecafdf3}</UniqueIdentifier>
     </Filter>
@@ -42,9 +39,6 @@
     </Filter>
     <Filter Include="2048Game\Source Files\Defs">
       <UniqueIdentifier>{537cecd8-c20e-4d61-99a4-602df5502aff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2048Game\Source Files\Stats">
-      <UniqueIdentifier>{4dfba5eb-212d-4102-9245-3b8c35ec9113}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,17 +69,14 @@
     <ClCompile Include="src\2048Game\Definitions\Rect.cpp">
       <Filter>2048Game\Source Files\Defs</Filter>
     </ClCompile>
-    <ClCompile Include="src\2048Game\Window\StatsWindow.cpp">
-      <Filter>2048Game\Source Files\Stats</Filter>
-    </ClCompile>
-    <ClCompile Include="src\2048Game\Stats\Stats.cpp">
-      <Filter>2048Game\Source Files\Stats</Filter>
-    </ClCompile>
     <ClCompile Include="src\2048Game\Window\GameWindow.cpp">
       <Filter>2048Game\Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\2048Game\Definitions\Definitions.cpp">
       <Filter>2048Game\Source Files\Defs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\2048Game\Window\StatsWindow.cpp">
+      <Filter>2048Game\Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,17 +116,14 @@
     <ClInclude Include="src\2048Game\Definitions\Rect.hpp">
       <Filter>2048Game\Header Files\Defs</Filter>
     </ClInclude>
-    <ClInclude Include="src\2048Game\Stats\Stats.hpp">
-      <Filter>2048Game\Header Files\Stats</Filter>
-    </ClInclude>
-    <ClInclude Include="src\2048Game\Window\StatsWindow.hpp">
-      <Filter>2048Game\Header Files\Stats</Filter>
-    </ClInclude>
     <ClInclude Include="src\2048Game\Window\GameWindow.hpp">
       <Filter>2048Game\Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\2048Game\Definitions\Definitions.hpp">
       <Filter>2048Game\Header Files\Defs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\2048Game\Window\StatsWindow.hpp">
+      <Filter>2048Game\Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

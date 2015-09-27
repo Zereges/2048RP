@@ -164,7 +164,6 @@
     <ClCompile Include="src\2048Game\Definitions\Rect.cpp" />
     <ClCompile Include="src\2048Game\Game\Game.cpp" />
     <ClCompile Include="src\2048Game\Program\Program.cpp" />
-    <ClCompile Include="src\2048Game\Stats\Stats.cpp" />
     <ClCompile Include="src\2048Game\Window\GameWindow.cpp" />
     <ClCompile Include="src\2048Game\Window\StatsWindow.cpp" />
     <ClCompile Include="src\2048Game\Window\Window.cpp" />
@@ -181,7 +180,6 @@
     <ClInclude Include="src\2048Game\Definitions\Rect.hpp" />
     <ClInclude Include="src\2048Game\Game\Game.hpp" />
     <ClInclude Include="src\2048Game\Program\Program.hpp" />
-    <ClInclude Include="src\2048Game\Stats\Stats.hpp" />
     <ClInclude Include="src\2048Game\Window\GameWindow.hpp" />
     <ClInclude Include="src\2048Game\Window\StatsWindow.hpp" />
     <ClInclude Include="src\2048Game\Window\Window.hpp" />
