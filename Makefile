@@ -5,7 +5,9 @@ LDSERVER=-o server -L2048Server/lib -lmysqlcppconn
 LDCLIENT=-o client
 WITH-DEBUG=-g
 
-all: server client
+# all: server client
+
+all: server
 
 server: ser-main.o session.o player_data.o
 	$(CXX) $(LDFLAGS) $(LDSERVER) $+
