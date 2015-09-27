@@ -14,7 +14,8 @@ of at least one block, then the player is declared as a loser.
 
 This is implementation consisting of two parts:
 - **Server**: Forming a place to play. Clients are connected to the server and are playing the game with datas on the server. Server also stores all information about players and their statistics such as how many times each player won.
-- **Client**: Has to connect to the server in order to play. After being connected to the server, player may play the game regularly. 
+- **Client**: Has to connect to the server in order to play. After being connected to the server, player may play the game regularly.
+
 ---
 # Server part
 ### PREREQUISITIES
