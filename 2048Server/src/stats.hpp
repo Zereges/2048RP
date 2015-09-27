@@ -13,7 +13,7 @@ class stats
     public:
         using container_t = std::vector<long long>;
 
-        //! Emum for StatTypes.
+        //! Enum for StatTypes.
         enum StatTypes
         {
             LEFT_MOVES = 0,
@@ -40,12 +40,15 @@ class stats
 
         //! Constructs zero statistics used as base of single game.
         stats() : m_stats(MAX_STATS, 0l) { }
+
+        //! Constructs statistics from given stats implementation container.
+        //! \param data container containing statistics.
         explicit stats(const container_t& data) : m_stats(data) { }
 
         // Statistics increments.
         //! Increments statistics for play event.
         //! \param dir Played direction.
-        //! \sa Game::play(Directions)
+        //! \sa player_data::play(Directions)
         void play(Directions dir)
         {
             switch (dir)
@@ -59,21 +62,19 @@ class stats
         }
 
         //! Increments statistics for move event.
-        //! \sa Game::move_to()
+        //! \sa player_data::move_to()
         void move() { ++m_stats[StatTypes::BLOCKS_MOVED]; }
 
         //! Increments statistics for merge event.
-        //! \sa Game::merge_to()
+        //! \sa player_data::merge_to()
         void merge() { ++m_stats[StatTypes::BLOCKS_MERGED]; }
 
         //! Increments statistics for restart event.
-        //! \param last_time time_t, when statistics were shown for last time.
-        //! \sa Game::restart()
+        //! \sa player_data::restart()
         void restart() { ++m_stats[StatTypes::GAME_RESTARTS]; }
 
         //! Increments statistics for win event.
-        //! \param last_time time_t, when statistics were shown for last time. 
-        //! \sa Game::won()
+        //! \param duration Duration of that game play.
         void won(const std::chrono::duration<long long>& duration)
         {
             ++m_stats[StatTypes::GAME_WINS];
@@ -83,8 +84,7 @@ class stats
         }
 
         //! Increments statistics for lose event.
-        //! \param last_time time_t, when statistics were shown for last time. 
-        //! \sa Game::game_over()
+        //! \param duration Duration of that game play.
         void game_over(const std::chrono::duration<long long>& duration)
         {
             ++m_stats[StatTypes::GAME_LOSES];
@@ -95,7 +95,6 @@ class stats
 
         //! Increments statistics for score event.
         //! \param score Score gain for last turn.
-        //! \sa Game::merge_to()
         void score(int score) { m_stats[StatTypes::TOTAL_SCORE] += score; }
 
         //! Updates statistics for highest score.
@@ -104,10 +103,14 @@ class stats
 
         //! Updates statistics for maximal block
         //! \param number Current merged number.
-        void maximal_block(long long number) { m_stats[StatTypes::MAXIMAL_BLOCK] = std::max(number, m_stats[StatTypes::MAXIMAL_BLOCK]); }
+        void maximal_block(Blocks block) { m_stats[StatTypes::MAXIMAL_BLOCK] = std::max(static_cast<long long>(block), m_stats[StatTypes::MAXIMAL_BLOCK]); }
 
+        //! Returns inner container implementation of stats. Used for \ref sql_connection::save_data
+        //! \return inner implementation of stats.
         const container_t& get_impl() const { return m_stats; }
 
+        //! Updates time played based on duration.
+        //! \param dur Duration of how long the game lasts until now.
         void update_time_played(long long dur) { m_stats[StatTypes::TOTAL_TIME_PLAYED] = dur; }
 
     private:

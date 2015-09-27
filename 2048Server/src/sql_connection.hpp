@@ -7,17 +7,32 @@
 #include <cppconn/statement.h>
 #include <cppconn/exception.h>
 #include "../../Common/hasher.hpp"
+
+/**!
+    Wrapper around C++ SQL Connector providing interface for manipulating with MySQL database.
+*/
 class sql_connection
 {
     public:
+        //! Constructor for initializing connection using given values.
+        //! \param host MySQL host address.
+        //! \param user MySQL username.
+        //! \param pass MySQL password.
+        //! \param db MySQL database containing 2048 game tables.
         sql_connection(const std::string& host, const std::string& user, const std::string& pass, const std::string& db)
         {
             sql::Driver* driver = get_driver_instance();
             m_connection = std::unique_ptr<sql::Connection>(driver->connect("tcp://" + host, user, pass));
             m_connection->setSchema(db);
         }
+
+        //! Defaulted move constructor.
         sql_connection(sql_connection&& other) = default;
 
+        //! Checks, whether given player login information is correct.
+        //! \param name player's username
+        //! \param passwd player's password
+        //! \return player's id if login is successful, 0 otherwise.
         int check_login(const std::string& name, const std::string& passwd)
         {
             auto res = execute_query("SELECT id, passwd FROM users WHERE name = '" + name + "';");
@@ -29,6 +44,9 @@ class sql_connection
             return 0;
         }
 
+        //! Gets global stats from database
+        //! \param id player's id of which we want get stats
+        //! \return unique_ptr of constructed stats.
         std::unique_ptr<stats> get_stats(int id)
         {
             stats::container_t data(stats::MAX_STATS, 0l);
@@ -39,6 +57,8 @@ class sql_connection
             return std::unique_ptr<stats>(new stats(data));
         }
 
+        //! Gets data of given player.
+        //! \param id player's id of which we want get data.
         data_tuple get_data(int id)
         {
             auto res = execute_query("SELECT id, data, won, score FROM player_data WHERE id = " + std::to_string(id) + ";");
@@ -47,6 +67,8 @@ class sql_connection
             throw invalid_message("Client requested data without being logged in.");
         }
 
+        //! Saves player's data and stats into database. Will call \ref sql_connection::save_stats.
+        //! \param data reference to data to be saved into database
         void save_data(const player_data& data)
         {
             execute("REPLACE INTO player_data (id, data, won, score) VALUES (" +
@@ -58,6 +80,9 @@ class sql_connection
             save_stats(data.get_id(), data.get_stats_impl());
         }
 
+        //! Saves player's stats into database
+        //! \param id player's id for which we want to save stats.
+        //! \param stats stats we sant to save to given player \sa player_data::get_stats_impl
         void save_stats(int id, const stats::container_t& stats)
         {
             std::string cur_query = "REPLACE INTO stats_current (player_id, stats_id, value) VALUES ";
@@ -94,6 +119,9 @@ class sql_connection
         }
 
     private:
+        //! Executes query to database. Used for queries which return something.
+        //! \param query query to be executed.
+        //! \return unique_ptr of sql::ResultSet
         std::unique_ptr<sql::ResultSet> execute_query(const std::string& query)
         {
             try
@@ -108,6 +136,9 @@ class sql_connection
                 throw sql::SQLException(std::string(e.what()) + " (query: " + query + ").", e.getSQLState(), e.getErrorCode());
             }
         }
+
+        //! Executes query to database. Used for queries which does not return anything.
+        //! \param query query to be executed.
         void execute(const std::string& query)
         {
             try
@@ -122,5 +153,5 @@ class sql_connection
             }
         }
 
-        std::unique_ptr<sql::Connection> m_connection;
+        std::unique_ptr<sql::Connection> m_connection; //!< unique_ptr of sql::Connection from connector.
 };

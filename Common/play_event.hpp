@@ -4,16 +4,27 @@
 #include <vector>
 #include "../Common/main.hpp"
 
+/**!
+    \brief Class representing play by the client.
+    \sa player_data::play
+*/
 class play_event
 {
     public:
+        //! Operation of the event regarding a block
         enum operation
         {
-            MOVE = 1,
-            MERGE = 2,
+            MOVE = 1, //!< Moving the block.
+            MERGE = 2, //!< Merging of blocks.
         };
+
+        //! Default constructor.
         play_event() : m_won(false), m_lost(false), m_score(0) { }
-        play_event(const std::string& data)
+
+        //! Constructor used when constructing the class as response from the server. De-serialization.
+        //! \param data data recieved from the server
+        //! \sa play_event::serialize, client::play
+        explicit play_event(const std::string& data)
         {
             try
             {
@@ -52,6 +63,9 @@ class play_event
             }
         }
 
+        //! Serializes current \ref play_event to the string.
+        //! \return serialized \ref play_event.
+        //! \sa player_data::play
         std::string serialize()
         {
             std::string ser = "";
@@ -83,41 +97,75 @@ class play_event
             return std::move(ser);
         }
 
+        //! Appends moving of block to the event.
+        //! \param from_x x coord of Block on field.
+        //! \param from_y y coord of Block on field.
+        //! \param to_x x coord where to move.
+        //! \param to_y y coord where to move.
+        //! \sa player_data::move_to
         void move_to(std::size_t from_x, std::size_t from_y, std::size_t to_x, std::size_t to_y)
         {
             m_block_operations.emplace_back(MOVE, std::make_pair(std::make_pair(from_x, from_y), std::make_pair(to_x, to_y)));
         }
 
+        //! Appends merging of block to the event.
+        //! \param from_x x coord of Block on field.
+        //! \param from_y y coord of Block on field.
+        //! \param to_x x coord of Block to merge with.
+        //! \param to_y y coord of Block to merge with.
+        //! \sa player_data::merge_to
         void merge_to(std::size_t from_x, std::size_t from_y, std::size_t to_x, std::size_t to_y)
         {
             m_block_operations.emplace_back(MERGE, std::make_pair(std::make_pair(from_x, from_y), std::make_pair(to_x, to_y)));
         }
 
+        //! Setter for random block appearing at the end of the turn.
+        //! \param block_data block and coords of random block.
         void random_block(random_block_record&& block_data) { m_random_block = std::move(block_data); }
+        //! Getter for random block appearing at the end of the turn.
+        //! \return block_data block and coords of random block.
         const random_block_record& random_block() const { return m_random_block; }
 
+        //! Increases \ref m_score by merged amount.
+        //! \param score to increase by.
         void score(int score) { m_score += score; }
+        //! Getter for \ref m_score.
+        //! \return m_score of current \ref play_event.
         int score() const { return m_score; }
 
+        //! Setter of game over.
         void game_over() { m_lost = true; }
+        //! Getter of game over.
+        //! \return true if player lost this turn, false otherwise.
         bool lost() const { return m_lost; }
 
+        //! Setter of game won.
         void game_won() { m_won = true; }
+        //! Getter of game won.
+        //! \return true if player won this turn, false otherwise.
         bool won() const { return m_won; }
 
+        //! Checks whether something happened last turn.
+        //! \retrun true if something happened, false otherwise.
         bool played() const { return !m_block_operations.empty(); }
 
     private:
+        //! Pair of coords representing from_x from_y to_x to_y in operation
         using from_to_coords = std::pair<coords, coords>;
+        //! Pair of \ref operation and \ref from_to_coords.
         using block_operation = std::pair<operation, from_to_coords>;
 
-        std::vector<block_operation> m_block_operations;
-        random_block_record m_random_block;
-        bool m_won;
-        bool m_lost;
-        int m_score;
+        std::vector<block_operation> m_block_operations; //!< vector of block operations that happened last turn.
+        random_block_record m_random_block; //!< Block and coords where should random block at the end of the turn spawn.
+        bool m_won; //!< Indicates that player won this turn.
+        bool m_lost; //!< Indicates that player lost this turn.
+        int m_score; //!< Score, that player gained this turn.
 
     public:
+        //! Used for for-in-loop
+        //! \return iterator to the beginning of block operations this turn.
         auto begin() const -> decltype(m_block_operations.begin()) { return m_block_operations.begin(); }
+        //! Used for for-in-loop
+        //! \return iterator past the end of block operations this turn.
         auto end() const -> decltype(m_block_operations.end()) { return m_block_operations.end(); }
 };

@@ -5,18 +5,28 @@
 #include <chrono>
 #include "../../Common/main.hpp"
 
+/**!
+    \brief Class for accepting messages from the server.
+*/
 class listener
 {
     public:
+        //! Default constructor of listener.
+        //! \param connected reference to connected status of client.
         listener(bool& connected) : m_connected(connected) { }
 
-        void write(char* data, size_t lenght)
+        //! Writes data to the listener.
+        //! \param data ptr to data.
+        //! \param lenght size of data.
+        void write(char* data, std::size_t lenght)
         {
             std::lock_guard<std::mutex> lock(m_mutex);
             m_msgs.emplace_front(data, lenght);
             m_cond.notify_all();
         }
 
+        //! Gets the response from the server. Will block until response is given or \ref SECONDS_UNTIL_TIMEOUT has passed.
+        //! \return response from the server.
         std::string get_response()
         {
             if (!m_connected) // probably user is not too fast
@@ -32,8 +42,8 @@ class listener
         }
 
     private:
-        std::deque<std::string> m_msgs;
-        std::mutex m_mutex;
-        std::condition_variable m_cond;
-        bool& m_connected;
+        std::deque<std::string> m_msgs; //< Msgs from the server
+        std::mutex m_mutex; //!< Mutex for handling access to queue.
+        std::condition_variable m_cond; //!< Condition variable to implement blocking mechanics.
+        bool& m_connected; //!< Reference to connected status of the client. \sa client::m_connected
 };
