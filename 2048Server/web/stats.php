@@ -6,12 +6,13 @@ if ($con->connect_errno > 0)
     die("Failed to connect to MySQL: " . $con->connect_error);
 
 
-function print_stats($con, $id, $table)
+function print_stats($con, $id, $table, $title)
 {
     if (!$res = $con->query("SELECT sd.name AS name, s.value AS value FROM $table AS s JOIN stats_definitions sd ON sd.id = s.stats_id WHERE player_id = $id;"))
         die('There was an error running the query [' . $con->error . ']');
     
     echo "<table border=1 style=\"display: inline-block;\">";
+    echo "<tr><td colspan=2 align=\"center\">$title</td></tr>";
     echo "<tr><td>Statistics</td><td>Value</td></tr>";
     while ($row = $res->fetch_assoc())
     {
@@ -32,11 +33,8 @@ if(isset($_POST['submit']))
         $row = $res->fetch_assoc();
         $id = $row['id'];
         
-        echo "Global stats: ";
-        print_stats($con, $id, "stats_global");
-        
-        echo "Stats from last session";
-        print_stats($con, $id, "stats_current");
+        print_stats($con, $id, "stats_global", "Global statistics");
+        print_stats($con, $id, "stats_current", "Stats for last session");
     }
     else
         echo "No stats for user $user.";
