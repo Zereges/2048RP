@@ -92,7 +92,7 @@ namespace directions
 }
 
 static const std::string PORT = "8881"; //!< Default port to connect to (and host server on).
-static const std::string HOST = "localhost"; //!< Default host to connect to.
+static const std::string HOST = "server.ekirei.cz"; //!< Default host to connect to.
 
 static const std::size_t SECONDS_UNTIL_TIMEOUT = 10; //!< Seconds until \ref connection_timed exception occurs.
 

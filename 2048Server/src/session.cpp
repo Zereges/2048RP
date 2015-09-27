@@ -1,10 +1,16 @@
 #include "session.hpp"
 #include <tuple>
+#include <chrono>
+#include <ctime>
+#include <iomanip>
 #include "../../Common/main.hpp"
 #include "../../Common/play_event.hpp"
 
 void session::handle_message(const message& mes)
 {
+    std::time_t now_c = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::cout << std::put_time(std::localtime(&now_c), "%F %T: ");
+
     std::string data(mes.body(), mes.body_length());
     if (compare_msg(data, message_types::MSG_LOGIN))
     {
@@ -16,9 +22,13 @@ void session::handle_message(const message& mes)
             m_data.set_id(id);
             m_data.set_name(user);
             deliver(message(message_types::MSG_LOGIN_OK));
+            std::cout << user << ": LoginOK" << std::endl;
         }
         else
+        {
             deliver(message(message_types::MSG_LOGIN_FAIL));
+            std::cout << user << ": LoginFail" << std::endl;
+        }
     }
     else if (compare_msg(data, message_types::MSG_DATA_REQ))
     {
@@ -40,6 +50,7 @@ void session::handle_message(const message& mes)
     else if (compare_msg(data, message_types::MSG_PLAY))
     {
         std::string direction = data.substr(message_types::MSG_PLAY.length());
+        std::cout << m_data.get_name() << ": Play " << direction << std::endl;
 
         play_event pl_event;
         if (direction == directions::LEFT)
@@ -55,6 +66,8 @@ void session::handle_message(const message& mes)
     }
     else if (compare_msg(data, message_types::MSG_RESTART))
     {
+        std::cout << m_data.get_name() << ": Restart" << std::endl;
+
         auto vec = m_data.restart();
         std::string res = message_types::MSG_RESTART_OK + "+";
         for (const auto& item : vec)
